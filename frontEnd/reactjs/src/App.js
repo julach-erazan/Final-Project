@@ -1,20 +1,18 @@
 import './App.css';
-import Nav from './component/Nav';
 import Chatbot from './component/Chatbot';
 import Home from './Pages/Home';
 import About from './Pages/About';
-import Shop from './Pages/Shop';
-import Service from './Pages/Service';
+import Products from './Pages/Products';
+import Contact from './Pages/Contact';
 
 function App() {
   return (
-    <div>
-      <Nav/>
+    <div className='overflow-hidden'>
       <Chatbot/>
       <Home/>
       <About/>
-      <Shop/>
-      <Service/>
+      <Products/>
+      <Contact/>
     </div>
   );
 }
