@@ -7,23 +7,22 @@ const Chatbot = () => {
   const [image,setImage] = useState("");
   const [infomessage,setMessage] = useState("");
   const [divElements, setDivElements] = useState([]);
-  const newDivElements = [...divElements];
-  const index = newDivElements.length;
-  const newIndex = index + 1;
 
   useEffect(()=>{
     console.log(infomessage)
     if(infomessage != null){
+      const newDivElements = [...divElements];
+      const newIndex = newDivElements.length+1;
 
       const newDiv = <div key={newIndex}>
-          <div className='w-[100%] bg-[green] pt-[10px] mb-[15px]'>
+          <div className='w-[100%] bg-[green] mb-[15px]'>
             <p>{infomessage}</p>
           </div>
         </div>;
       setDivElements([...divElements, newDiv]);
       setMessage("")
-    }
 
+    }
 
   },[infomessage])
 
