@@ -1,27 +1,85 @@
-import React, { useState} from 'react'
-import uploadImage from './Images/upload.png'
-import ChatArea from './ChatArea';
+import React, { useEffect, useRef, useState} from 'react'
+import UploadImg from './Images/upload.png'
 
 const Chatbot = () => {
   const [popupWindow, setPopupWindow] = useState(false);
-  const [imageInput, setImageInput] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [popupInput, setPopupInput] = useState(false);
+  const [image,setImage] = useState("");
+  const [infomessage,setMessage] = useState("");
+  const [divElements, setDivElements] = useState([]);
+  const newDivElements = [...divElements];
+  const index = newDivElements.length;
+  const newIndex = index + 1;
+
+  useEffect(()=>{
+    console.log(infomessage)
+    if(infomessage != null){
+
+      const newDiv = <div key={newIndex}>
+          <div className='w-[100%] bg-[green] pt-[10px] mb-[15px]'>
+            <p>{infomessage}</p>
+          </div>
+        </div>;
+      setDivElements([...divElements, newDiv]);
+      setMessage("")
+    }
+
+
+  },[infomessage])
 
   const handleClick = () =>{
     setPopupWindow(!popupWindow)
   }
 
   const cameraClick = () => {
-    setImageInput(!imageInput)
-  }
+      setPopupInput(!popupInput)
+  };
+
+  const inputRef = useRef(null);
+
+  const handleImageClick = () =>{
+    inputRef.current.click();
+  };
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    if (file) {
-      setSelectedImage(URL.createObjectURL(file));
-    }else{    
+    console.log(file)
+    setImage(file);
+  };
+
+  const addDiv = () => {
+
+    if(image.name != null){
+      const newDiv = <div key={divElements.length}>
+          <div className='w-[100%] bg-black p-[10px] mb-[15px]'>
+            <p>Customer</p>
+          {image && (<img src={URL.createObjectURL(image)} alt=""  className='h-[100px] bg-cover'/>)}
+          </div>
+        </div>;
+      setDivElements([...divElements, newDiv]);
+      setImage("")
+      setPopupInput(false)
+
+      const formData = new FormData();
+      formData.append('image', image);
+
+      fetch('http://localhost:5000/upload', {
+        method: 'POST',
+        body: formData,
+      })
+        .then(response => response.json())
+        .then(data => {
+          const lb = data.message
+          setMessage(lb)
+        })
+        .catch(error => {
+          console.error('Error during upload:', error);
+        });
+    }else{
+      alert("Please upload image");
     }
-  }
+
+  };
 
   return (
     <>
@@ -46,32 +104,38 @@ const Chatbot = () => {
             "></button>
           </div>
 
-          <div className='w-[100%] h-[480px] pl-[10px] pr-[10px] overflow-y-scroll'>
-              {/* <div className='w-[100%] bg-[#000] mt-[10px]'>
-              <p>Selected Image:</p>
-                  <img src={selectedImage} alt="Selected" width="200" />
-              </div>
-              <div className='w-[100%] h-[70px] bg-[yellow] mt-[10px]'></div> */}
-              <ChatArea/>
+          <div className='w-[100%] h-[460px] pl-[10px] pr-[10px] mb-[20px] overflow-y-scroll'>
+              {divElements.map((div, index) => (
+                <React.Fragment key={index}>{div}</React.Fragment>
+              ))}
           </div>
-          <div className={`w-[93%] md:w-[350px] bg-[#d0d0cf] rounded-[10px] absolute ml-[5px] bottom-[120px] flex justify-center items-center 
-            transition-all duration-500 ease-in ${(imageInput === true) ? "h-[200px]" :"h-0"}`}>
 
-                <div className={`w-[90%] h-[80%] flex justify-center items-center border-dashed border-[3px] border-[black]
-                  ${(imageInput === true) ? "visible" :"hidden"}`}>
-                  <input id='imageUpload' className='hidden' type="file" accept="image/*" onChange={handleImageChange}/>
-                  <label className='w-[100%] h-[100%] flex justify-center items-center' for='imageUpload'>
-                    <img src={uploadImage} alt="" width="100px" height="100px"/>
+          <div onSubmit={addDiv} method="POST" className={`w-[93.5%] md:w-[350px] bg-[#f0f0f0] rounded-[10px] absolute ml-[5px] mb-[10px] bottom-[100px] md:bottom-[95px] flex justify-center items-center 
+            flex-col transition-all duration-500 ease-in ${(popupInput === true) ? "h-[40%]" :"h-0"}`}>
+
+                <div onClick={handleImageClick} className={`w-[90%] h-[60%] flex justify-center items-center border-solid border-[3px] border-[#008000] rounded-[15px] flex-col
+                  cursor-pointer ${(popupInput === true) ? "visible" :"hidden"}`}>
+                    <input className='hidden' type="file" accept="image/*" ref={inputRef} onChange={handleImageChange}/>
+                    {image ? (<img src={URL.createObjectURL(image)} alt=""  className='h-[100px] bg-cover'/>) : (<img src={UploadImg} alt="" width={'100px'}/>)}
+                    <label className='w-[100%] flex justify-center items-center' htmlFor='imageUpload'>
+                      <p className='text-black mt-[10px]'>Select a file here</p>
                     </label>
-                </div>
-              </div>
+                  </div>
+                <button onClick={addDiv} className={`w-[150px] h-[45px] border-solid border-[3px] 
+                border-[#008000] rounded-[22.5px] bg-[#008000] mt-[25px] text-[#fff]
+                hover:bg-[#228b22] hover:border-[#228b22]
+                ${(popupInput === true) ? "visible" :"hidden"}
+                `}>
+                  Upload
+                </button>
+          </div>
           <div className='w-[100%] h-[45px] flex items-center'>
             <div className='w-[100%] pl-[10px] pr-[10px]'>
               <div className='w-[100%] h-[35px] rounded-l-[15px] rounded-r-[15px]
                 flex items-center
                 '>
                 <button onClick={cameraClick} className="
-                  w-[50px] h-[50px] rounded-[50%]
+                  w-[50px] h-[50px] rounded-[50%] fixed
                   bg-cover bg-[url('/src/component/Images/camera.png')] hover:bg-[url('/src/component/Images/camera-hover.png')]
                   "></button>
               </div>
