@@ -1,18 +1,25 @@
 import './App.css';
 import Chatbot from './component/Chatbot';
 import Home from './Pages/Home';
-import About from './Pages/About';
-import Products from './Pages/Products';
-import Contact from './Pages/Contact';
+import Shop from './Pages/Shop'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  BrowserRouter,
+} from "react-router-dom";
 
 function App() {
   return (
     <div className='overflow-hidden'>
+      <BrowserRouter>
+        <Routes>
+              <Route index path="/" element={<Home />}/>
+              <Route path="/shop"  element={<Shop/>}/>  
+        </Routes>
+      </BrowserRouter>
       <Chatbot/>
-      <Home/>
-      <About/>
-      <Products/>
-      <Contact/>
     </div>
   );
 }

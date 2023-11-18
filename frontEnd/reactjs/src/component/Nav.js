@@ -42,7 +42,7 @@ const Nav = () => {
   return (
     <div className="w-full min-w-[350px] h-[70px] flex">
         
-        <button className="w-[40px] h-[40px] md:w-[50px] md:h-[50px] fixed z-[200] bottom-[150px] right-[20px]
+        <button className="w-[40px] h-[40px] md:w-[50px] md:h-[50px] fixed z-[200] bottom-[150px] right-[20px] 
         bg-[url('/src/Pages/Images/top.png')] bg-cover
         " onClick={() => handleClickScroll('home')}></button>
 

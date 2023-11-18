@@ -5,26 +5,12 @@ const Chatbot = () => {
   const [popupWindow, setPopupWindow] = useState(false);
   const [popupInput, setPopupInput] = useState(false);
   const [image,setImage] = useState("");
-  const [infomessage,setMessage] = useState("");
+  const [val,setVal] = useState([]);
+  const [resmessage, setResMessage] = useState();
   const [divElements, setDivElements] = useState([]);
-
-  useEffect(()=>{
-    console.log(infomessage)
-    if(infomessage != null){
-      const newDivElements = [...divElements];
-      const newIndex = newDivElements.length+1;
-
-      const newDiv = <div key={newIndex}>
-          <div className='w-[100%] bg-[green] mb-[15px]'>
-            <p>{infomessage}</p>
-          </div>
-        </div>;
-      setDivElements([...divElements, newDiv]);
-      setMessage("")
-
-    }
-
-  },[infomessage])
+  const newDivElements = [...divElements];
+  const newIndex = newDivElements.length+1;
+  const messageEndRef = useRef(null);
 
   const handleClick = () =>{
     setPopupWindow(!popupWindow)
@@ -42,11 +28,12 @@ const Chatbot = () => {
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    console.log(file)
+    //console.log(file)
     setImage(file);
   };
 
   const addDiv = () => {
+    
 
     if(image.name != null){
       const newDiv = <div key={divElements.length}>
@@ -68,8 +55,8 @@ const Chatbot = () => {
       })
         .then(response => response.json())
         .then(data => {
-          const lb = data.message
-          setMessage(lb)
+          setVal([...val, data.message])
+          setResMessage(data.message)
         })
         .catch(error => {
           console.error('Error during upload:', error);
@@ -79,6 +66,23 @@ const Chatbot = () => {
     }
 
   };
+
+  useEffect(()=>{
+    
+    if(val.length > 0){
+      const newDiv = <div key={newIndex}>
+          <div className='w-[100%] bg-[green] pt-[10px] pb-[10px] mb-[15px]'>
+            <p>{resmessage}</p>
+          </div>
+        </div>;
+      setDivElements([...divElements, newDiv]);
+    }
+  },[val.length])
+
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView()
+    
+  },[newIndex])
 
   return (
     <>
@@ -97,7 +101,7 @@ const Chatbot = () => {
           <div className='w-[100%] h-[55px] flex items-center border-b-[2px] border-solid border-[#bfc1c2] pr-[5px] bg-[#008631] 
           rounded-t-[15px]'
           >
-            <h3 className='w-[100%] text-[20px] pl-[25px] text-[#fff]'>AgroBot</h3>
+            <h3 className='w-[100%] text-[20px] pl-[25px] text-[#fff]'>Ask Agrika</h3>
             <button onClick={handleClick} className="w-[45px] h-[40px] bg-cover bg-[url('/src/component/Images/close-btn.png')]
             hover:bg-[url('/src/component/Images/close-btn-hover.png')] mr-[10px]
             "></button>
@@ -107,6 +111,8 @@ const Chatbot = () => {
               {divElements.map((div, index) => (
                 <React.Fragment key={index}>{div}</React.Fragment>
               ))}
+
+              <div ref={messageEndRef}/>
           </div>
 
           <div onSubmit={addDiv} method="POST" className={`w-[93.5%] md:w-[350px] bg-[#f0f0f0] rounded-[10px] absolute ml-[5px] mb-[10px] bottom-[100px] md:bottom-[95px] flex justify-center items-center 

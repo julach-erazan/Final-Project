@@ -1,5 +1,8 @@
 import React from 'react'
 import Nav from '../component/Nav'
+import About from './About';
+import Contact from './Contact';
+import Products from './Products';
 
 const Home = () => {
 
@@ -11,6 +14,7 @@ const Home = () => {
 };
 
   return (
+    <>
     <div id='home' className="w-[100vw] bg-cover bg-[url('/src/Pages/Images/background_mobile.png')] pl-[25px] md:pl-[50px]
     md:bg-[url('/src/Pages/Images/background.jpeg')]
     ">
@@ -30,6 +34,10 @@ const Home = () => {
         </button>
       </div>
     </div>
+    <About/>
+    <Products/>
+    <Contact/>
+    </>
   )
 }
 
