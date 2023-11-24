@@ -1,4 +1,4 @@
-const express =require('express')
+const express = require('express')
 const mysql = require('mysql')
 const cors = require('cors')
 
@@ -12,11 +12,11 @@ const db = mysql.createConnection({
     database: "agro_db"
 })
 
-app.get('/', (re, res)=>{
-    return res.json("From Backend");
-})
+// app.get('/', (re, res)=>{
+//     return res.json("From Backend");
+// })
 
-app.get('/test',(req, res)=> {
+app.get('/newproduct',(req, res)=> {
     const sql = "SELECT * FROM newProduct_tb";
     db.query(sql, (err,data)=> {
         if(err) return res.json(err);

@@ -101,7 +101,8 @@ const Chatbot = () => {
           <div className='w-[100%] h-[55px] flex items-center border-b-[2px] border-solid border-[#bfc1c2] pr-[5px] bg-[#008631] 
           rounded-t-[15px]'
           >
-            <h3 className='w-[100%] text-[20px] pl-[25px] text-[#fff]'>Ask Agrika</h3>
+            <img src='Images/agrika.png' alt='' width={'30px'} height={'30px'} className='ml-[10px] rounded-[20px]' />
+            <h3 className='w-[calc(100%-40px)] text-[20px] pl-[15px] text-[#fff]'>Agrika</h3>
             <button onClick={handleClick} className="w-[45px] h-[40px] bg-cover bg-[url('/src/component/Images/close-btn.png')]
             hover:bg-[url('/src/component/Images/close-btn-hover.png')] mr-[10px]
             "></button>

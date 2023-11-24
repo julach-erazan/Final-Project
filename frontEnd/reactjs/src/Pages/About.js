@@ -2,10 +2,10 @@ import React from 'react'
 
 const About = () => {
   return (
-    <div id='about' className="w-full  flex justify-center pt-[5vw] pb-[5vw] text-[black]">
-        <div className='w-[85vw] md:w-[90vw] bg-[#e8e9eb] shadow pt-[20px] pl-[20px] pr-[20px] pb-[60px]'>
+    <div id='about' className="w-full  flex justify-center pt-[5vw] pb-[5vw] text-[#86888a]">
+        <div className='w-[85vw] md:w-[90vw] min-w-[300px] pt-[20px] pl-[20px] pr-[20px] pb-[60px]'>
           <h1 className='text-[25px] md:text-[50px] font-black text-[#008631] mb-[15px] pl-[10px]
-          border-l-[5px] border-solid border-[#000] pl-[20px] mb-[20px]'>Who We Are</h1>
+          border-l-[5px] border-solid border-[#86888a] pl-[20px] mb-[20px]'>Who We Are</h1>
             <div className='w-[100%] flex flex-col md:flex-row'>
               <div className='w-[100%] md:w-[50%] md:pr-[10px] border-l-[5px] border-solid border-[#008631] pl-[20px] md:mb-[40px]'>
                 <p>An industry pioneer in innovation and sustainability, Agro Agriculture is one of
@@ -31,7 +31,7 @@ const About = () => {
             </div>
 
             <h1 className='text-[20px] md:text-[35px] font-black text-[#008631] mb-[15px] pl-[10px]
-            border-l-[5px] border-solid border-[#000] pl-[20px] mb-[20px]'>Our Vision</h1>
+            border-l-[5px] border-solid border-[#86888a] pl-[20px] mb-[20px]'>Our Vision</h1>
             <div className='w-[100%] flex flex-col md:flex-row'>
               <div className='w-[100%] md:pr-[10px] border-l-[5px] border-solid border-[#008631] pl-[20px] mb-[40px]'>
                 <p>Be the most trusted brand in agriculture.</p>
@@ -39,7 +39,7 @@ const About = () => {
             </div>
 
             <h1 className='text-[20px] md:text-[35px] font-black text-[#008631] mb-[15px] pl-[10px]
-            border-l-[5px] border-solid border-[#000] pl-[20px] mb-[20px]'>Our Mission</h1>
+            border-l-[5px] border-solid border-[#86888a] pl-[20px] mb-[20px]'>Our Mission</h1>
             <div className='w-[100%] flex flex-col md:flex-row'>
               <div className='w-[100%] md:pr-[10px] border-l-[5px] border-solid border-[#008631] pl-[20px]'>
                 <p>Supporting sustainable greener agriculture with Innovation, Quality inputs and Extension services.</p>

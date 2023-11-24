@@ -4,6 +4,11 @@ import logo from './Images/logo.png'
 const Nav = () => {
 
     const [lastScrollTop, setLastScrollTop] = useState(0);
+    const [menu, setMenu] = useState(false);
+
+    const handleClick = () =>{
+        setMenu(!menu)
+    }
 
     useEffect(() => {
         const handleScroll = () => {
@@ -24,6 +29,7 @@ const Nav = () => {
 
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
+            setMenu(false);
         }
     };
 
@@ -33,11 +39,6 @@ const Nav = () => {
         {name:"OUR PRODUCTS",id:"products"},
         {name:"CONTACT",id:"contact"},
       ];
-
-    const [menu, setMenu] = useState(false);
-    const handleClick = () =>{
-        setMenu(!menu)
-    }
 
   return (
     <div className="w-full min-w-[350px] h-[70px] flex">
@@ -73,7 +74,7 @@ const Nav = () => {
         </div>
         <div className='w-[100px] h-[100px] flex justify-center items-center'>
             <button onClick = {handleClick}
-                className={`visible md:invisible w-[60px] h-[60px] bg-cover fixed top-[10px] right-[20px]
+                id="menuBtn" className={`visible md:invisible w-[60px] h-[60px] bg-cover fixed top-[10px] right-[20px]
                 ${(menu === true) ? "bg-[url('/src/component/Images/close-menu.png')]" :"bg-[url('/src/component/Images/menu2.png')]"}
                 `}>
             </button>

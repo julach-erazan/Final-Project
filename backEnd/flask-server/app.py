@@ -16,8 +16,8 @@ def upload_image():
     if file.filename == '':
         return jsonify({'error': 'No selected file'}), 400
 
-    file.save('../loadedImages/flask-server' + file.filename)
-    output = predictor('../loadedImages/flask-server' + file.filename)
+    file.save('../loadedImages/flask-server_' + file.filename)
+    output = predictor('../loadedImages/flask-server_' + file.filename)
     print(output)
     
     if output>0.5:

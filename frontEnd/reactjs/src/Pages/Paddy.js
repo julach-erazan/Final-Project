@@ -6,10 +6,6 @@ const Shop = () => {
     <div className='w-full h-[100vh]'>
       <ShopNav/>
       <div>
-        <button>Paddy</button>
-        <button>Corn</button>
-        <button>Vegitables</button>
-        <button>Fruits</button>
       </div>
     </div>
   )
