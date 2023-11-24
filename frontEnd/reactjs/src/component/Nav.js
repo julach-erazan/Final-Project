@@ -5,6 +5,7 @@ const Nav = () => {
 
     const [lastScrollTop, setLastScrollTop] = useState(0);
     const [menu, setMenu] = useState(false);
+    const [topBtn, setTopBtn] = useState(true);
 
     const handleClick = () =>{
         setMenu(!menu)
@@ -13,8 +14,14 @@ const Nav = () => {
     useEffect(() => {
         const handleScroll = () => {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
         setLastScrollTop(scrollTop);
+        
+        if(scrollTop>=200){
+            setTopBtn(false);
+        }else{
+            setTopBtn(true);
+        }
+
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -43,9 +50,9 @@ const Nav = () => {
   return (
     <div className="w-full min-w-[350px] h-[70px] flex">
         
-        <button className="w-[40px] h-[40px] md:w-[50px] md:h-[50px] fixed z-[200] bottom-[150px] right-[20px] 
-        bg-[url('/src/Pages/Images/top.png')] bg-cover
-        " onClick={() => handleClickScroll('home')}></button>
+        <button className={`w-[40px] h-[40px] md:w-[50px] md:h-[50px] fixed z-[200] bottom-[150px] right-[20px] 
+        bg-[url('/src/Pages/Images/top.png')] transition-all duration-500 ease-in ${(topBtn === true) ? "hidden" :"visible"} bg-cover`} 
+        onClick={() => handleClickScroll('home')}></button>
 
         <div className='w-[50px] h-[50px] md:w-[100px] md:h-[80px] flex justify-center align-center mt-[10px]'>
             <button onClick={() => handleClickScroll('home')}><img src={logo} alt='Logo' width={'80px'}></img></button>

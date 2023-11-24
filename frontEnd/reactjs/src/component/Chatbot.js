@@ -33,13 +33,14 @@ const Chatbot = () => {
   };
 
   const addDiv = () => {
-    
 
     if(image.name != null){
       const newDiv = <div key={divElements.length}>
-          <div className='w-[100%] bg-black p-[10px] mb-[15px]'>
-            <p>Customer</p>
-          {image && (<img src={URL.createObjectURL(image)} alt=""  className='h-[100px] bg-cover'/>)}
+          <div className='w-[100%] mb-[15px] text-black flex'>
+            <img src='Images/agrika_chat.png' alt='' className='w-[30px] h-[30px] rounded-[20px] mt-[5px]' />
+            <div className='w-[90%] h-[100%] ml-[10px] bg-[#f5eeee] p-[10px] rounded-[10px] flex justify-center items-center'>
+              {image && (<img src={URL.createObjectURL(image)} alt=""  className='h-[100px] bg-cover'/>)}
+            </div>
           </div>
         </div>;
       setDivElements([...divElements, newDiv]);
@@ -71,8 +72,11 @@ const Chatbot = () => {
     
     if(val.length > 0){
       const newDiv = <div key={newIndex}>
-          <div className='w-[100%] bg-[green] pt-[10px] pb-[10px] mb-[15px]'>
-            <p>{resmessage}</p>
+          <div className='w-[100%] pt-[10px] pb-[10px] mb-[15px] text-[#fff] flex'>
+            <div className='w-[90%] h-[100%] mr-[10px] bg-[#4e4e4c] p-[10px] rounded-[10px] flex'>
+              <p>{resmessage}</p>
+            </div>
+            <img src='Images/user.png' alt='' className='w-[30px] h-[30px] rounded-[20px] mt-[5px]' />
           </div>
         </div>;
       setDivElements([...divElements, newDiv]);
@@ -98,9 +102,9 @@ const Chatbot = () => {
 
         <div className='w-[95%] h-[95%] md:w-[360px] md:h-[600px] bg-[#fff] rounded-[15px] md:shadow'>
           
-          <div className='w-[100%] h-[55px] flex items-center border-b-[2px] border-solid border-[#bfc1c2] pr-[5px] bg-[#008631] 
-          rounded-t-[15px]'
-          >
+          <div className='w-[100%] h-[55px] flex items-center border-b-[2px] border-solid border-[#bfc1c2] pr-[5px] bg-[#008631] mb-[10px] 
+          rounded-t-[15px]'>
+
             <img src='Images/agrika.png' alt='' width={'30px'} height={'30px'} className='ml-[10px] rounded-[20px]' />
             <h3 className='w-[calc(100%-40px)] text-[20px] pl-[15px] text-[#fff]'>Agrika</h3>
             <button onClick={handleClick} className="w-[45px] h-[40px] bg-cover bg-[url('/src/component/Images/close-btn.png')]

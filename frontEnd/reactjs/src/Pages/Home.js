@@ -2,6 +2,7 @@ import React from 'react'
 import Nav from '../component/Nav'
 import About from './About';
 import Contact from './Contact';
+import Footer from './Footer';
 import Products from './Products';
 
 const Home = () => {
@@ -37,6 +38,7 @@ const Home = () => {
     <About/>
     <Products/>
     <Contact/>
+    <Footer/>
     </>
   )
 }
