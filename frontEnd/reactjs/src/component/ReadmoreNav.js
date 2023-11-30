@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import logo from './Images/logo.png'
 
 
-const ShopNav = () => {
+const ReadmoreNav = () => {
 
     const [lastScrollTop, setLastScrollTop] = useState(0);
     const [menu, setMenu] = useState(false);
@@ -49,7 +49,7 @@ const ShopNav = () => {
       ];
 
   return (
-    <div className="w-full min-w-[350px] h-[70px] flex">
+    <div className="w-full min-w-[350px] h-[80px] flex">
         
         <button className={`w-[40px] h-[40px] md:w-[50px] md:h-[50px] fixed z-[200] bottom-[150px] right-[20px] 
         bg-[url('/src/Pages/Images/top.png')] transition-all duration-500 ease-in ${(topBtn === true) ? "hidden" :"visible"} bg-cover`} 
@@ -91,4 +91,4 @@ const ShopNav = () => {
   )
 }
 
-export default ShopNav
+export default ReadmoreNav

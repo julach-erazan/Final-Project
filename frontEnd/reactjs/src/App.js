@@ -2,13 +2,9 @@ import './App.css';
 import Chatbot from './component/Chatbot';
 import Home from './Pages/Home';
 import Shop from './Pages/Shop'
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-  BrowserRouter,
-} from "react-router-dom";
+import Readmore from './Pages/Readmore';
+import {BrowserRouter as Router, Routes, Route, BrowserRouter,} from "react-router-dom";
+import Pest from './Pages/Pest';
 
 function App() {
   return (
@@ -16,7 +12,9 @@ function App() {
       <BrowserRouter>
         <Routes>
               <Route index path="/" element={<Home />}/>
-              <Route path="/shop"  element={<Shop/>}/>  
+              <Route path="/shop"  element={<Shop/>}/>
+              <Route path="/readmore/:productName"  element={<Readmore/>}/>
+              <Route path="/pest/:pestName"  element={<Pest/>}/>
         </Routes>
       </BrowserRouter>
       <Chatbot/>

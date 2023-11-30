@@ -1,46 +1,57 @@
 import React, { useEffect, useRef, useState} from 'react'
 import UploadImg from './Images/upload.png'
+import SendImg from './Images/send.png'
+import UserImg from './Images/user.png'
+import Agrika_chatImg from './Images/agrika_chat.png'
+import AgrikaImg from './Images/agrika.png'
 
 const Chatbot = () => {
   const [popupWindow, setPopupWindow] = useState(false);
   const [popupInput, setPopupInput] = useState(false);
   const [image,setImage] = useState("");
-  const [val,setVal] = useState([]);
   const [resmessage, setResMessage] = useState();
+  const [helloMessage, setHelloMessage] = useState("");
+
+  const [val,setVal] = useState([]);
   const [divElements, setDivElements] = useState([]);
   const newDivElements = [...divElements];
   const newIndex = newDivElements.length+1;
   const messageEndRef = useRef(null);
 
+  //Chatbot window handle
   const handleClick = () =>{
     setPopupWindow(!popupWindow)
   }
 
+  //Input Section
   const cameraClick = () => {
-      setPopupInput(!popupInput)
+      setPopupInput(!popupInput);
   };
 
+  //Chat Section Scroll Bottom
   const inputRef = useRef(null);
 
   const handleImageClick = () =>{
     inputRef.current.click();
   };
 
+  //Set Image file for backend
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     //console.log(file)
     setImage(file);
   };
 
+  //Add Chat section divs
   const addDiv = () => {
 
     if(image.name != null){
       const newDiv = <div key={divElements.length}>
-          <div className='w-[100%] mb-[15px] text-black flex'>
-            <img src='Images/agrika_chat.png' alt='' className='w-[30px] h-[30px] rounded-[20px] mt-[5px]' />
-            <div className='w-[90%] h-[100%] ml-[10px] bg-[#f5eeee] p-[10px] rounded-[10px] flex justify-center items-center'>
+          <div className='w-[100%] mb-[15px] text-[#fff] flex'>
+            <div className='w-[90%] h-[100%] mr-[10px] bg-[#4e4e4c] p-[10px] rounded-[10px] flex justify-center items-center'>
               {image && (<img src={URL.createObjectURL(image)} alt=""  className='h-[100px] bg-cover'/>)}
             </div>
+            <img src={UserImg} alt='user' className='w-[30px] h-[30px] rounded-[20px] mt-[5px]' />
           </div>
         </div>;
       setDivElements([...divElements, newDiv]);
@@ -64,19 +75,21 @@ const Chatbot = () => {
         });
     }else{
       alert("Please upload image");
+      setPopupInput(false);
     }
 
   };
 
+  //display backend response message(flask)
   useEffect(()=>{
     
     if(val.length > 0){
       const newDiv = <div key={newIndex}>
-          <div className='w-[100%] pt-[10px] pb-[10px] mb-[15px] text-[#fff] flex'>
-            <div className='w-[90%] h-[100%] mr-[10px] bg-[#4e4e4c] p-[10px] rounded-[10px] flex'>
+          <div className='w-[100%] pt-[10px] pb-[10px] mb-[15px] text-[#000] flex'>
+            <img src={Agrika_chatImg} alt='agrika_chat' className='w-[30px] h-[30px] rounded-[20px] mt-[5px]' />
+            <div className='w-[70%] h-[100%] ml-[10px] bg-[#f5eeee] p-[10px] rounded-[10px] flex'>
               <p>{resmessage}</p>
             </div>
-            <img src='Images/user.png' alt='' className='w-[30px] h-[30px] rounded-[20px] mt-[5px]' />
           </div>
         </div>;
       setDivElements([...divElements, newDiv]);
@@ -87,6 +100,49 @@ const Chatbot = () => {
     messageEndRef.current?.scrollIntoView()
     
   },[newIndex])
+
+  //Hi button response message handle
+  useEffect (() => {
+    if(helloMessage === "Hello"){
+      const newDiv = <div key={divElements.length}>
+          <div className='w-[100%] mb-[15px] text-[#000] flex'>
+            <img src={Agrika_chatImg} alt='agrika_chat' className='w-[30px] h-[30px] rounded-[20px] mt-[5px]' />
+            <div className='w-[70%] h-[100%] ml-[10px] bg-[#f5eeee] p-[10px] rounded-[10px] flex'>
+              <p>Welcome to Agro Agriculture Pvt(Ltd) webpage. I'm <b>Agrika.</b></p>
+            </div>
+          </div>
+        </div>;
+      setHelloMessage("");
+      setDivElements([...divElements, newDiv]);
+    }
+  },[helloMessage])
+
+  //Disabled hi button, while input
+  useEffect (()=>{
+    if(popupInput === true){
+      document.getElementById('hiBtn').disabled = true;
+      document.getElementById('hiBtn').style.backgroundColor = '#82d682';
+      document.getElementById('hiBtn').style.color = '#f0f0f0';
+
+    }else{
+      document.getElementById('hiBtn').disabled = false;
+      document.getElementById('hiBtn').style.backgroundColor = '#008631';
+    }
+  },[popupInput])
+
+  //Hi button Click event
+  const clickHello = () => {
+      const newDiv = <div key={divElements.length}>
+          <div className='w-[100%] mb-[15px] text-[#fff] flex justify-end'>
+            <div className='w-[20%] h-[100%] mr-[10px] bg-[#4e4e4c] p-[10px] rounded-[10px] flex justify-center items-center'>
+              <p>Hello</p>
+            </div>
+            <img src={UserImg} alt='user' className='w-[30px] h-[30px] rounded-[20px] mt-[5px]' />
+          </div>
+        </div>;
+      setHelloMessage("Hello");
+      setDivElements([...divElements, newDiv]);
+  }
 
   return (
     <>
@@ -105,7 +161,7 @@ const Chatbot = () => {
           <div className='w-[100%] h-[55px] flex items-center border-b-[2px] border-solid border-[#bfc1c2] pr-[5px] bg-[#008631] mb-[10px] 
           rounded-t-[15px]'>
 
-            <img src='Images/agrika.png' alt='' width={'30px'} height={'30px'} className='ml-[10px] rounded-[20px]' />
+            <img src={AgrikaImg} alt='agrika' width={'30px'} height={'30px'} className='ml-[10px] rounded-[20px]' />
             <h3 className='w-[calc(100%-40px)] text-[20px] pl-[15px] text-[#fff]'>Agrika</h3>
             <button onClick={handleClick} className="w-[45px] h-[40px] bg-cover bg-[url('/src/component/Images/close-btn.png')]
             hover:bg-[url('/src/component/Images/close-btn-hover.png')] mr-[10px]
@@ -150,6 +206,11 @@ const Chatbot = () => {
                   "></button>
               </div>
             </div>
+            <button id="hiBtn" className='w-[130px] h-[35px] mr-[40px]
+            flex rounded-[25px] items-center bg-[#008631] text-[#fff]' onClick={clickHello}>
+            <h1 className='w-[50px] font-black'>Hi</h1>
+            <img src={SendImg} alt="send" className='w-[30px] h-[30px] rounded-[15px] mr-[10px]'/>
+            </button>
           </div>
         </div>
       </div>
