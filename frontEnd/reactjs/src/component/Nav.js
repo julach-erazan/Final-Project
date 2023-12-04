@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 import logo from './Images/logo.png'
 
-const Nav = () => {
+const Nav = ({Links}) => {
 
     const [lastScrollTop, setLastScrollTop] = useState(0);
     const [menu, setMenu] = useState(false);
@@ -40,13 +41,6 @@ const Nav = () => {
         }
     };
 
-    let Links =[
-        {name:"HOME",id:"home"},
-        {name:"ABOUT US",id:"about"},
-        {name:"OUR PRODUCTS",id:"products"},
-        {name:"CONTACT",id:"contact"},
-      ];
-
   return (
     <div className="w-full min-w-[350px] h-[70px] flex">
         
@@ -55,14 +49,14 @@ const Nav = () => {
         onClick={() => handleClickScroll('home')}></button>
 
         <div className='w-[50px] h-[50px] md:w-[100px] md:h-[80px] flex justify-center align-center mt-[10px]'>
-            <button onClick={() => handleClickScroll('home')}><img src={logo} alt='Logo' width={'80px'}></img></button>
+          <Link to="/"><button><img src={logo} alt='Logo' width={'80px'}></img></button></Link>
         </div>
         <div className='invisible w-0 md:visible md:w-[100%] md:h-[50px] flex justify-center items-center'>
             <ul className="flex">
             {
             Links.map((link)=>(
                 <li key={link.name} className="w-[150px] h-[50px] flex justify-center">
-                <button onClick={() => handleClickScroll(link.id)} className="text-white text-[20px] hover:text-black">{link.name}</button>
+                <button onClick={() => handleClickScroll(link.id)} className="text-[#86888a] text-[20px] hover:text-black">{link.name}</button>
                 </li>
             ))
             }

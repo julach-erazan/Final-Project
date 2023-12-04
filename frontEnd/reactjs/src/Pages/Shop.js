@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom';
 import Footer from '../component/Footer';
-import ShopNav from '../component/ShopNav'
-import ShopContact from '../Pages/ShopContact'
+import Nav from '../component/Nav'
+import Contact from '../Pages/Contact'
 
 const Shop = () => {
 
@@ -21,10 +21,16 @@ const Shop = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  let Links =[
+    {name:"PESTS",id:"pests"},
+    {name:"PRODUCTS",id:"products"},
+    {name:"CONTACT",id:"contact"},
+  ];
+
   return (
     <>
     <div id="home" className='w-[100vw] pl-[25px] md:pl-[50px]'>
-      <ShopNav/>
+      <Nav Links={Links}/>
       <div id="pests" className="w-[85vw] md:w-[90vw] min-w-[300px] pt-[20px] pl-[20px] pr-[20px] pb-[20px]">
         <h1 className='text-[25px] md:text-[40px] font-black text-[#008631] mt-[20px] mb-[15px] pl-[10px]
               border-l-[5px] border-solid border-[#86888a] pl-[20px] mb-[20px]'>Pests in Rice</h1>
@@ -69,7 +75,7 @@ const Shop = () => {
         </div>
       </div>
     </div>
-    <ShopContact/>
+    <Contact Links={Links}/>
     <Footer/>
     </>
   )

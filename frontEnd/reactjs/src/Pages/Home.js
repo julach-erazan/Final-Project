@@ -19,12 +19,19 @@ const Home = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  let Links =[
+    {name:"HOME",id:"home"},
+    {name:"ABOUT US",id:"about"},
+    {name:"OUR PRODUCTS",id:"products"},
+    {name:"CONTACT",id:"contact"},
+  ];
+
   return (
     <>
       <div id='home' className="w-[100vw] bg-cover bg-[url('/src/Pages/Images/background_mobile.png')] pl-[25px] md:pl-[50px]
       md:bg-[url('/src/Pages/Images/background.jpeg')]
       ">
-        <Nav/>
+        <Nav Links={Links}/>
         <div className='w-[250px] md:w-[70%] pb-[100px] md:mt-[100px]'>
           <h1 className='text-[25px] md:text-[50px] font-black text-[#008631]'>
             AGRO Agriculture - The Leader <span className='text-[#fff]'>Agricultural Innovation and Sustainability</span>
@@ -41,7 +48,7 @@ const Home = () => {
       </div>
       <About/>
       <Products/>
-      <Contact/>
+      <Contact Links={Links}/>
       <Footer/>
     </>
   )

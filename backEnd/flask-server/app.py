@@ -21,11 +21,11 @@ def upload_image():
     print(output)
     
     if output>0.5:
-        data = {'message': "This is Rice Gall Midge"}
-        print("This is Rice Gall Midge")
+        data = {'message': "Rice Gall Midge"}
+        print("Rice Gall Midge")
     else:
-        data = {'message': "This is Brown Plant Hopper"}
-        print("This is Brown Plant Hopper")
+        data = {'message': "Brown Plant Hopper"}
+        print("Brown Plant Hopper")
 
     return jsonify(data), 200
 

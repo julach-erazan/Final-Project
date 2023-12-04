@@ -13,7 +13,7 @@ const db = mysql.createConnection({
 })
 
 app.get('/newproduct',(req, res)=> {
-    const sql = "SELECT * FROM newProduct_tb";
+    const sql = "SELECT * FROM newproduct_table";
     db.query(sql, (err,data)=> {
         if(err) return res.json(err);
         return res.json(data);
@@ -21,7 +21,7 @@ app.get('/newproduct',(req, res)=> {
 })
 
 app.get('/pesticides',(req, res)=> {
-    const sql = "SELECT * FROM pesticide_table";
+    const sql = "SELECT * FROM pesticidetable";
     db.query(sql, (err,data)=> {
         if(err) return res.json(err);
         return res.json(data);
@@ -29,7 +29,7 @@ app.get('/pesticides',(req, res)=> {
 })
 
 app.get('/pest/:pestName',(req, res)=> {
-    const sql = "SELECT * FROM pest_table WHERE pestName = ?";
+    const sql = "SELECT * FROM pesttable WHERE pestName = ?";
     const pestName  = req.params.pestName;
     db.query(sql,[pestName], (err,data)=> {
         if(err) return res.json(err);
@@ -38,7 +38,7 @@ app.get('/pest/:pestName',(req, res)=> {
 })
 
 app.get('/readmore/:productName',(req, res)=> {
-    const sql = "SELECT * FROM pesticide_table WHERE productName = ?";
+    const sql = "SELECT * FROM pesticidetable WHERE productName = ?";
     const productName  = req.params.productName;
     db.query(sql,[productName], (err,data)=> {
         if(err) return res.json(err);

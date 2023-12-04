@@ -8,7 +8,7 @@ import Location_icon from './Images/location.png'
 import Mail_icon from './Images/email.png'
 import Phone_icon from './Images/mobile.png'
 
-const Contact = () => {
+const Contact = ({Links}) => {
 
   const [lastScrollTop, setLastScrollTop] = useState(0);
 
@@ -33,14 +33,6 @@ const handleClickScroll = (elementId) => {
         element.scrollIntoView({ behavior: 'smooth' });
     }
 };
-
-let Links =[
-    {name:"Home",id:"home"},
-    {name:"About Us",id:"about"},
-    {name:"Our Products",id:"products"},
-    {name:"Contact",id:"contact"},
-  ];
-
 
   return (
     <div id='contact' className='w-full md:h-[250px] flex flex-col md:flex-row bg-[#c0c7d0] justify-center items-center'>

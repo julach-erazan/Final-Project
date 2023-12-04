@@ -4,6 +4,9 @@ import SendImg from './Images/send.png'
 import UserImg from './Images/user.png'
 import Agrika_chatImg from './Images/agrika_chat.png'
 import AgrikaImg from './Images/agrika.png'
+import HelloMessage from './HelloMessage'
+import MoreBtn from './MoreBtnMessage'
+import axios from 'axios';
 
 const Chatbot = () => {
   const [popupWindow, setPopupWindow] = useState(false);
@@ -11,8 +14,12 @@ const Chatbot = () => {
   const [image,setImage] = useState("");
   const [resmessage, setResMessage] = useState();
   const [helloMessage, setHelloMessage] = useState("");
+  const [more, setMore] = useState("");
+  const [pestval,setPestVal] = useState([]);
+  const [pestName, setPestName] = useState()
 
   const [val,setVal] = useState([]);
+  
   const [divElements, setDivElements] = useState([]);
   const newDivElements = [...divElements];
   const newIndex = newDivElements.length+1;
@@ -80,6 +87,15 @@ const Chatbot = () => {
 
   };
 
+  useEffect(()=>{
+    axios.get('http://localhost:8081/pest/'+pestName)
+  .then(res => {
+      console.log(res.data)
+      setPestVal(res.data)
+  })
+  .catch(err => console.log(err));
+  }, [resmessage])
+
   //display backend response message(flask)
   useEffect(()=>{
     
@@ -88,7 +104,14 @@ const Chatbot = () => {
           <div className='w-[100%] pt-[10px] pb-[10px] mb-[15px] text-[#000] flex'>
             <img src={Agrika_chatImg} alt='agrika_chat' className='w-[30px] h-[30px] rounded-[20px] mt-[5px]' />
             <div className='w-[70%] h-[100%] ml-[10px] bg-[#f5eeee] p-[10px] rounded-[10px] flex'>
-              <p>{resmessage}</p>
+            <p>This is {resmessage}.</p>
+
+              {/* {pestval.map((d,i) => (
+                <div key={i}>
+                    <p>{d.pestDetails}</p>
+                </div>
+              ))
+              } */}
             </div>
           </div>
         </div>;
@@ -100,17 +123,29 @@ const Chatbot = () => {
     messageEndRef.current?.scrollIntoView()
     
   },[newIndex])
+  
+  const moreBtn = () => {
+    setMore("moreClicked");
+  }
+
+  //More button message
+  useEffect(() => {
+    if(more !== ""){
+      const newDiv = <div key={divElements.length}>
+      <MoreBtn/> 
+      </div>;
+      setHelloMessage("");
+      setMore("");
+      setDivElements([...divElements, newDiv]);
+    }
+  }, [more])
 
   //Hi button response message handle
   useEffect (() => {
+
     if(helloMessage === "Hello"){
       const newDiv = <div key={divElements.length}>
-          <div className='w-[100%] mb-[15px] text-[#000] flex'>
-            <img src={Agrika_chatImg} alt='agrika_chat' className='w-[30px] h-[30px] rounded-[20px] mt-[5px]' />
-            <div className='w-[70%] h-[100%] ml-[10px] bg-[#f5eeee] p-[10px] rounded-[10px] flex'>
-              <p>Welcome to Agro Agriculture Pvt(Ltd) webpage. I'm <b>Agrika.</b></p>
-            </div>
-          </div>
+          <HelloMessage moreBtnProp={moreBtn}/>
         </div>;
       setHelloMessage("");
       setDivElements([...divElements, newDiv]);
