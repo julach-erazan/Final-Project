@@ -13,7 +13,7 @@ const HelloMessage = (props) => {
               System. </b>I can identifying pest and recommend suitable pesticide for your crops. Try it now !!!
               </p>
               <div className='w-[100%] h-[30px] flex justify-start items-center'>
-                    <button onClick={props.moreBtnProp} className='w-[100px] h-[30px] rounded-[15px] bg-[#008631] hover:bg-[#006c18] text-[#fff] font-black'>More</button>
+                    <button onClick={props.moreBtnProp} className='w-[100px] h-[30px] rounded-[15px] bg-[#008631] hover:bg-[#006c18] text-[#fff] font-black'>Help</button>
                     
               </div>
             </div>

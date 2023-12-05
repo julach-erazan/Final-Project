@@ -6,21 +6,22 @@ import Agrika_chatImg from './Images/agrika_chat.png'
 import AgrikaImg from './Images/agrika.png'
 import HelloMessage from './HelloMessage'
 import MoreBtn from './MoreBtnMessage'
-import axios from 'axios';
+import AboutPest from './AboutPest'
 
 const Chatbot = () => {
   const [popupWindow, setPopupWindow] = useState(false);
   const [popupInput, setPopupInput] = useState(false);
+
   const [image,setImage] = useState("");
+
   const [resmessage, setResMessage] = useState();
   const [helloMessage, setHelloMessage] = useState("");
   const [more, setMore] = useState("");
-  const [pestval,setPestVal] = useState([]);
-  const [pestName, setPestName] = useState()
 
   const [val,setVal] = useState([]);
-  
   const [divElements, setDivElements] = useState([]);
+
+
   const newDivElements = [...divElements];
   const newIndex = newDivElements.length+1;
   const messageEndRef = useRef(null);
@@ -74,12 +75,12 @@ const Chatbot = () => {
       })
         .then(response => response.json())
         .then(data => {
-          setVal([...val, data.message])
-          setResMessage(data.message)
-        })
-        .catch(error => {
-          console.error('Error during upload:', error);
-        });
+                setVal([...val, data.message]);
+                setResMessage(data.message);
+          })
+          .catch(error => {
+            console.error('Error during upload:', error);
+          });
     }else{
       alert("Please upload image");
       setPopupInput(false);
@@ -87,31 +88,16 @@ const Chatbot = () => {
 
   };
 
-  useEffect(()=>{
-    axios.get('http://localhost:8081/pest/'+pestName)
-  .then(res => {
-      console.log(res.data)
-      setPestVal(res.data)
-  })
-  .catch(err => console.log(err));
-  }, [resmessage])
-
   //display backend response message(flask)
   useEffect(()=>{
-    
+
     if(val.length > 0){
       const newDiv = <div key={newIndex}>
           <div className='w-[100%] pt-[10px] pb-[10px] mb-[15px] text-[#000] flex'>
             <img src={Agrika_chatImg} alt='agrika_chat' className='w-[30px] h-[30px] rounded-[20px] mt-[5px]' />
-            <div className='w-[70%] h-[100%] ml-[10px] bg-[#f5eeee] p-[10px] rounded-[10px] flex'>
-            <p>This is {resmessage}.</p>
-
-              {/* {pestval.map((d,i) => (
-                <div key={i}>
-                    <p>{d.pestDetails}</p>
-                </div>
-              ))
-              } */}
+            <div className='w-[70%] h-[100%] ml-[10px] bg-[#f5eeee] p-[10px] rounded-[10px] flex flex-col'>
+              <p><b>{resmessage}.</b></p>
+              <AboutPest pestName={resmessage}/>
             </div>
           </div>
         </div>;
