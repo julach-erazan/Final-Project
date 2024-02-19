@@ -16,7 +16,8 @@ def upload_image():
     if file.filename == '':
         return jsonify({'error': 'No selected file'}), 400
 
-    file.save('../loadedImages/flask-server_' + file.filename)
+    path = '../loadedImages/flask-server_' + file.filename
+    file.save(path)
     output = predictor('../loadedImages/flask-server_' + file.filename)
     print(output)
     
